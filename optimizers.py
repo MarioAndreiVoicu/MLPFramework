@@ -5,7 +5,7 @@ from typing import Tuple, Literal
 optimizers.py
 
 This module defines various optimization algorithms used for updating the parameters 
-of neural network layers during training.
+of the multilayer perceptron layers during training.
 
 Supported optimizers include:
 - Stochastic Gradient Descent (SGD)

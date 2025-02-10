@@ -1,7 +1,7 @@
 """
-MNIST Neural Network Example (Load Model)
+MNIST Multilayer Perceptron Example (Load Model)
 
-This is an example of loading a pretrained neural network model.
+This is an example of loading a pretrained MLP model.
 Input format: 28x28 grayscale images of handwritten digits (0-9).
 Output format: One-hot encoded labels for each digit (10 classes).
 
@@ -20,8 +20,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import OneHotEncoder
 import matplotlib.pyplot as plt
 
-# import neural_network and layers
-from neural_network import NeuralNetwork
+from multilayer_perceptron import MultilayerPerceptron
 
 # Load MNIST data
 mnist = fetch_openml("mnist_784", version=1)
@@ -44,7 +43,7 @@ X_val, X_test, Y_val, Y_test = train_test_split(
 )
 
 # Load the model
-model = NeuralNetwork.load_model("mnist_model.json")
+model = MultilayerPerceptron.load_model("mnist_model.json")
 
 # Make predictions
 train_predictions = model.predict(X_train)

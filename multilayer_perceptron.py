@@ -9,13 +9,13 @@ import json
 from typing import List, Optional, Literal, Generator, Tuple
 
 """
-neural_network.py
+multilayer_perceptron.py
 
-This module defines a neural network model class that can be used to build, 
-compile, train, and evaluate custom neural networks.
+This module defines a MLP model class that can be used to build, 
+compile, train, and evaluate custom MLP models.
 
 Key Features:
-- Build custom neural networks using a list of layers.
+- Build custom MLP models using a list of layers.
 - Compile models with various loss functions, optimizers, and metrics.
 - Train the model using backpropagation and gradient descent.
 - Evaluate model performance with a range of metrics and early stopping.
@@ -27,9 +27,9 @@ Dependencies:
 - json: Used for saving and loading model configurations and weights.
 """
 
-class NeuralNetwork:
+class MultilayerPerceptron:
     """
-    Class representing a neural network model.
+    Class representing a multilayer perceptron model.
     
     Attributes:
         layers (list): A list of the layers in the model.
@@ -52,7 +52,7 @@ class NeuralNetwork:
     
     def __init__(self, layers: object, verbose:bool = True):
         """
-        Initialize the neural network model.
+        Initialize the MLP model.
         
         Args:
             layers (list): A list of the layers in the model.
@@ -83,7 +83,7 @@ class NeuralNetwork:
         max_norm: float = 1.0
     ) -> None:
         """
-        Compile the neural network model.
+        Compile the MLP model.
         
         Args:
             loss_function (str): The loss function used by the model.
@@ -140,7 +140,7 @@ class NeuralNetwork:
         patience: int = 5,
     ) -> None:
         """
-        Train the neural network model.
+        Train the MLP model.
         
         Args:
             X_train: The training data with shape (num_samples, num_features).
@@ -391,7 +391,7 @@ class NeuralNetwork:
 
     
     @staticmethod
-    def load_model(filename: str) -> 'NeuralNetwork':
+    def load_model(filename: str) -> 'MultilayerPerceptron':
         """
         Load a model from a JSON file.
         
@@ -399,7 +399,7 @@ class NeuralNetwork:
             filename (str): The name of the file to load the model from.
             
         Returns:
-            NeuralNetwork: The loaded model.
+            MultilayerPerceptron: The loaded model.
         """
         with open(filename, 'r') as json_file:
             model_data = json.load(json_file)
@@ -424,7 +424,7 @@ class NeuralNetwork:
                 layer = layers.DropoutLayer(dropout_rate)
             layers_list.append(layer)
 
-        model = NeuralNetwork(layers_list, verbose=model_data['verbose'])
+        model = MultilayerPerceptron(layers_list, verbose=model_data['verbose'])
         model.compile(
             loss_function=model_data['loss_function'],
             optimizer=model_data['optimizer_name'],

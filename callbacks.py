@@ -6,14 +6,14 @@ from typing import Literal, List
 """
 callbacks.py
 
-This module defines various callbacks for neural network training.
+This module defines various callbacks for MLP training.
 
 Supported callbacks: "ProgressBar", "EarlyStopping".
 """
 
 class ProgressBar:
     """
-    A class to implement a progress bar for neural network training.
+    A class to implement a progress bar for MLP training.
     
     The progress bar shows the progress of the current epoch, the current batch
     number and a customizable metric at the end of the progress bar.
@@ -90,14 +90,14 @@ class ProgressBar:
 
 class EarlyStopping:
     """
-    A class to implement early stopping during neural network training.
+    A class to implement early stopping during MLP training.
 
     This class monitors the model's performance on the specified metric and
     stops training if the performance does not improve for a given number of
     epochs (patience).
     
     Attributes:
-        model (NeuralNetwork): The neural network model to monitor for early stopping.
+        model (MultilayerPerceptron): The MLP model to monitor for early stopping.
         patience (int): Number of epochs with no improvement after which training
             will be stopped.
         metric (str): The performance metric to evaluate. Default is "cost".
@@ -123,7 +123,7 @@ class EarlyStopping:
         Initializes EarlyStopping with given parameters.
 
         Args:
-            model: The neural network model to monitor for early stopping.
+            model: The MLP model to monitor for early stopping.
             patience: Number of epochs with no improvement after which training
                 will be stopped.
             metric: The performance metric to evaluate. Default is "cost".

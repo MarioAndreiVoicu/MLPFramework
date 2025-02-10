@@ -1,10 +1,10 @@
-## Neural Network Library
+## Multilayered Perceptron Framework
 
-A NumPy-based library for building and training neural networks.
+A NumPy-based library for building and training Multilayer Perceptrons.
 
 ## Key Features
 
-- **Custom Architectures**: Build neural networks with custom architectures.
+- **Custom Architectures**: Build Multilayer Perceptrons with custom architectures.
 - **Layer Types**: Dense, Dropout.
 - **Activation Functions**: Linear, Sigmoid, Tanh, Softmax, ReLU, PReLU, ELU, Swish.
 - **Loss Functions**: Binary Crossentropy, Categorical Crossentropy, Mean Squared Error, Mean Absolute Error.
@@ -41,10 +41,10 @@ A NumPy-based library for building and training neural networks.
 
 ## Example Usage
 
-Here is a minimal example that demonstrates how to create, compile, and train a simple neural network:
+Here is a minimal example that demonstrates how to create, compile, and train a simple Multilayer Perceptron:
 
 ```python
-from neural_network import layers, NeuralNetwork
+from multilayer_perceptron import layers, MultilayerPerceptron
 
 # Define the architecture of the model
 layers = [
@@ -56,7 +56,7 @@ layers = [
 ]
 
 # Initialize the model with the defined layers
-model = NeuralNetwork(layers)
+model = MultilayerPerceptron(layers)
 
 # Compile the model with a loss function, optimizer, and (optional) evaluation metrics
 model.compile(

@@ -4,7 +4,7 @@ from typing import Literal
 """
 regularization.py
 
-This module contains functions for implementing regularization in neural networks.
+This module contains functions for implementing regularization in the Multilayer Perceptron.
 The supported regularization methods are L1, L2, L1_L2 (Elastic Net).
 
 The module contains the following functions:
@@ -22,7 +22,7 @@ def _set_regularization(model: object ,lambda_: float,
     Sets the regularization parameters for the model.
     
     Args:
-        model: The neural network model.
+        model: The Multilayer Perceptron.
         lambda_: The regularization parameter.
         regularization_type: The type of regularization to use.
         l1_l2_ratio: The ratio of L1 regularization to L2 regularization.
@@ -46,7 +46,7 @@ def _compute_regularization_term(model: object, m: int) -> float:
     It adjusts the penalty according to the number of training examples.
       
     Args:
-        model: The neural network model.
+        model: The Multilayer Perceptron.
         m: The number of training examples.
         
     Returns:

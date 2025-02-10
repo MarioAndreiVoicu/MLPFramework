@@ -20,7 +20,7 @@ def _set_activation(
     Sets the activation function and its derivative for a given layer.
 
     Args:
-        layer: The neural network layer to set the activation function for.
+        layer: The MLP's layer to set the activation function for.
         activation: The name of the activation function to use.
         alpha: Used only for "prelu" (default: 0.01) and "elu" (default: 1.0).
         beta: Used only for "swish" (default: 1.0).

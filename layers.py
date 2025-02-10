@@ -6,7 +6,7 @@ from typing import Literal, Tuple, Optional
 """
 layers.py
 
-This module defines various layers for a neural network, including:
+This module defines various layers for a Multilayer Perceptron, including:
 - DenseLayer: A fully connected layer.
 - DropoutLayer: A layer that applies dropout for regularization.
 
@@ -15,7 +15,7 @@ Each layer supports various activation functions and weight initialization metho
 
 class DenseLayer:
     """
-    A dense (fully connected) layer for a neural network.
+    A dense (fully connected) layer for a Multilayer Perceptron.
 
     Attributes:
         input_size (int): Number of input features.
@@ -81,7 +81,7 @@ class DenseLayer:
 
         Args:
             dA: Gradient of the loss with respect to the output.
-            model: The neural network model containing the layer.
+            model: The Multilayer Perceptron containing the layer.
 
         Returns:
             np.ndarray: Gradient of the loss with respect to the input.
@@ -115,7 +115,7 @@ class DenseLayer:
       
 class DropoutLayer:
     """
-    A dropout layer for a neural network.
+    A dropout layer for a Multilayer Perceptron.
     
     Attributes:
         dropout_rate: Probability of dropping a neuron. Defaults to 0.5.

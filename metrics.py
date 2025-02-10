@@ -7,14 +7,14 @@ from typing import List, Literal, Union, Tuple, Dict, Callable
 metrics.py
 
 This module contains the Metrics class which is used to compute and display
-metrics for a neural network model. The class supports various metrics such as
+metrics for a Multilayer Perceptron. The class supports various metrics such as
 accuracy, precision, recall, F1 score, mean absolute error, and mean squared error,
 costs, and the main metric for the model. The metrics are computed during training
 and displayed in the progress bar. The class also supports colored output for
 displaying metrics.
 
 Attributes:
-    - model: A neural network model instance from the neural_network module.
+    - model: A Multilayer Perceptron instance from the multilayer_perceptron module.
     - costs: Dictionary storing training and validation costs, updated during training.
     - metrics_functions: Dictionary mapping metric names to their computation functions.
     - metrics_values: Dictionary storing computed metrics, updated during training.
@@ -25,15 +25,15 @@ Attributes:
 
 Classes:
     Metrics: A class to compute, store, and display performance metrics for a 
-    neural network model during the training process.
+    Multilayer Perceptron during the training process.
 """
 
 class Metrics:
     """
-    A class to compute and display metrics for a neural network model.
+    A class to compute and display metrics for a Multilayer Perceptron.
     
     Attributes:
-        model (NeuralNetwork): The neural network model.
+        model (MultilayerPerceptron): The Multilayer Perceptron.
         costs (dict): Dictionary to store the training and validation costs.
             It has the following keys: "train", "validation", "epoch_train".
             "train" stores the training costs for each batch, which are always
@@ -67,10 +67,10 @@ class Metrics:
                  average: Literal["macro", "micro"] = "macro",
                  use_colors: bool = False) -> None:
         """
-        Initializes the metrics for the neural network model.
+        Initializes the metrics for the Multilayer Perceptron.
 
         Args:
-            model: The neural network model.
+            model: The Multilayer Perceptron.
             metrics_list: List of strings specifying the metrics to compute.
                 Supported metrics are: "accuracy", "precision", "recall",
                 "f1_score", "mae", "mse".
@@ -121,7 +121,7 @@ class Metrics:
         metric name. The main metric can be "train_cost", "val_cost", or "train_val_cost".
         
         Args:
-            model: The neural network model to set the main metric for.
+            model: The Multilayer Perceptron to set the main metric for.
             main_metric: The name of the main metric to use.
             
         Raises:
@@ -236,7 +236,7 @@ class Metrics:
         Otherwise, the metrics are computed on the training data.
         
         Parameters:
-            model: The neural network model.
+            model: The Multilayer Perceptron.
             X_train: The training input data.
             Y_train: The training output data.
             has_validation_data: Whether validation data is provided.
@@ -260,12 +260,12 @@ class Metrics:
                 
     def _evaluate_validation_cost(self, model: object, X_val: np.ndarray, Y_val: np.ndarray) -> None:
         """
-        Evaluate the cost on validation data for the neural network model.
+        Evaluate the cost on validation data for the Multilayer Perceptron.
         
         The cost is stored in the costs dictionary under the "validation" key.
         
         Args:
-            model (NeuralNetwork): The neural network model.
+            model (MultilayerPerceptron): The Multilayer Perceptron.
             X_val (np.ndarray): The validation input data.
             Y_val (np.ndarray): The validation output data.
         """
@@ -280,7 +280,7 @@ class Metrics:
                          X_train: np.ndarray = None, Y_train: np.ndarray = None
                          ) -> Union[float, Tuple[float, float]]:
         """
-        Computes and returns the specified metric for the neural network.
+        Computes and returns the specified metric for the Multilayer Perceptron.
         
         Parameters:
             has_validation_data: Whether validation data is provided.

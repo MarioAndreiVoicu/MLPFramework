@@ -5,7 +5,7 @@ from typing import Literal
 losses.py
 
 This module provides implementations of various loss functions and their
-gradients for use in neural networks.
+gradients for use in the Multilayer Perceptron.
 
 Loss Functions Supported:
 - Mean Squared Error (MSE)

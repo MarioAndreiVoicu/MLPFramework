@@ -1,7 +1,7 @@
 """
-MNIST Neural Network Training Example
+MNIST Multilayer Perceptron Training Example
 
-This is an example of training a neural network on the MNIST dataset.
+This is an example of training a MLP on the MNIST dataset.
 Input format: 28x28 grayscale images of handwritten digits (0-9).
 Output format: One-hot encoded labels for each digit (10 classes).
 
@@ -30,8 +30,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import OneHotEncoder
 import matplotlib.pyplot as plt
 
-# import neural_network and layers
-from neural_network import NeuralNetwork, layers
+from multilayer_perceptron import MultilayerPerceptron, layers
 
 # Load MNIST data
 mnist = fetch_openml("mnist_784", version=1)
@@ -65,8 +64,8 @@ layers = [
     layers.DenseLayer(64, output_size, activation="softmax"),
 ]
 
-# Initialize and train the neural network
-model = NeuralNetwork(layers)
+# Initialize and train the Multilayer Perceptron
+model = MultilayerPerceptron(layers)
 model.compile(
     loss_function="categorical_crossentropy",
     optimizer="adam",
@@ -89,7 +88,7 @@ model.fit(
 )
 
 # Save the model
-NeuralNetwork.save_model(model, "mnist_model.json")
+MultilayerPerceptron.save_model(model, "mnist_model.json")
 
 # Make predictions
 train_predictions = model.predict(X_train)
