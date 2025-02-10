@@ -1,7 +1,7 @@
 import numpy as np
 import activations
 import regularization
-from typing import Literal, Tuple
+from typing import Literal, Tuple, Optional
 
 """
 layers.py
@@ -24,12 +24,19 @@ class DenseLayer:
         W (np.ndarray): Weights for the layer.
         activation (Callable): Activation function for the layer.
         activation_derivative (Callable): Derivative of the activation function.
+        _activation_name (str): The name of the activation function
+        alpha (float, optional): Parameter for PReLU (default 0.01) or ELU (default 1.0). Ignored for other activations.
+        beta (float, optional): Parameter for Swish (default 1.0). Ignored for other activations.
         optimizer (object): The optimizer used to update weights and biases.
     """
     
-    def __init__(self, input_size: int, output_size: int,
-                 activation: Literal["relu", "tanh", "sigmoid", "softmax", "linear"] = "relu",
-                 init_method: Literal["auto", "he", "xavier", "random"] = "auto") -> None:
+    def __init__(self, input_size: int,
+                 output_size: int,
+                 activation: Literal["relu", "tanh", "sigmoid", "softmax", "linear", "prelu", "elu", 'swish'] = "linear",
+                 alpha: Optional[float] = None,
+                 beta: Optional[float] = None,
+                 init_method: Literal["auto", "he", "xavier", "random"] = "auto"
+                 ) -> None:
         """
         Initializes the dense layer with weights, biases, and activation.
 
@@ -38,6 +45,8 @@ class DenseLayer:
             output_size: Number of output neurons.
             activation: The activation function to use. Defaults to "relu".
                 The parameter is a string and the class attribute is a function.
+            alpha: Parameter for PReLU (default 0.01) or ELU (default 1.0). Ignored for other activations.
+            beta: Parameter for Swish (default 1.0). Ignored for other activations.
             init_method: The method for weight initialization. Defaults to "auto".
                 On "auto", the method is chosen based on the activation function.
                 For "relu", "he" initialization is used. For "tanh", "sigmoid"
@@ -47,7 +56,7 @@ class DenseLayer:
         """
         self.input_size = input_size
         self.output_size = output_size
-        activations._set_activation(self, activation)
+        activations._set_activation(self, activation, alpha, beta)
         _initialize_parameters(self, input_size, output_size,layer_type="dense", init_method=init_method)
       
     def _forward_propagation(self, A_prev: np.ndarray) -> np.ndarray:
@@ -226,9 +235,9 @@ def _initialize_parameters(layer: object, input_size: int, output_size: int,
     """
     
     if init_method == "auto":
-        if layer.activation == activations._relu:
+        if layer._activation_name in ("relu", "prelu", "elu", "swish"):
             init_method = "he"
-        elif layer.activation in (activations._tanh, activations._sigmoid, activations._softmax):
+        elif layer._activation_name in ("linear", "tanh", "sigmoid", "softmax"):
             init_method = "xavier"
         else:
             init_method = "random"

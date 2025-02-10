@@ -58,9 +58,9 @@ output_size = Y_train.shape[1]
 
 # Initialize the layers
 layers = [
-    layers.DenseLayer(input_size, 128, activation="relu"),
+    layers.DenseLayer(input_size, 128, activation="swish"),
     layers.DropoutLayer(0.3),
-    layers.DenseLayer(128, 64, activation="relu"),
+    layers.DenseLayer(128, 64, activation="swish"),
     layers.DropoutLayer(0.3),
     layers.DenseLayer(64, output_size, activation="softmax"),
 ]

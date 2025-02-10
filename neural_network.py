@@ -216,7 +216,7 @@ class NeuralNetwork:
         activation function of the output layer.
         For sigmoid activation, the output is binary (0 or 1).
         For softmax activation, the output is the class with the highest probability.
-        For linear activation, the output is the raw prediction.
+        For linear, PReLU, ELU, and Swish activations, the output is the raw prediction.
         For tanh activation, the output is the tanh of the raw prediction.
         For relu activation, the output is the max of 0 and the raw prediction.
         
@@ -238,18 +238,14 @@ class NeuralNetwork:
         
         self.inference_mode = True
         AL = self._forward_propagation(X)
-        activation = self.layers[-1].activation.__name__
 
-        if activation == "_sigmoid":
+        activation = self.layers[-1]._activation_name
+        if activation == "sigmoid":
             return (AL > threshold).astype(int)
-        elif activation == "_softmax":
+        elif activation == "softmax":
             return np.argmax(AL, axis=0)
-        elif activation == "_linear":
+        elif activation in ("linear", "tanh", "relu", "prelu", "elu", "swish"):
             return AL
-        elif activation == "_tanh":
-            return np.tanh(AL)
-        elif activation == "_relu":
-            return np.maximum(0, AL)
         else:
             raise ValueError(f"Unsupported activation function: {activation}")
         
@@ -381,7 +377,9 @@ class NeuralNetwork:
                 'type': layer.__class__.__name__,
                 'input_size': layer.input_size if hasattr(layer, 'input_size') else None,
                 'output_size': layer.output_size if hasattr(layer, 'output_size') else None,
-                'activation': layer.activation.__name__.lstrip('_') if hasattr(layer, 'activation') else None,
+                'activation': layer._activation_name if hasattr(layer, 'activation') else None,
+                'alpha': layer.alpha if hasattr(layer, 'alpha') else None,
+                'beta': layer.beta if hasattr(layer, 'beta') else None,
                 'weights': layer.W.tolist() if hasattr(layer, 'W') else None,
                 'biases': layer.b.tolist() if hasattr(layer, 'b') else None,
                 'dropout_rate': layer.dropout_rate if hasattr(layer, 'dropout_rate') else None,
@@ -412,11 +410,14 @@ class NeuralNetwork:
             input_size = layer_data['input_size']
             output_size = layer_data['output_size']
             activation = layer_data['activation']
+            alpha = layer_data.get('alpha')
+            beta = layer_data.get('beta')
             weights = layer_data['weights']
             biases = layer_data['biases']
-            dropout_rate = layer_data['dropout_rate']
+            dropout_rate = layer_data.get('dropout_rate')
+            
             if layer_type == 'DenseLayer':
-                layer = layers.DenseLayer(input_size, output_size, activation)
+                layer = layers.DenseLayer(input_size, output_size, activation, alpha=alpha, beta=beta)
                 layer.W = np.array(weights)
                 layer.b = np.array(biases)
             elif layer_type == 'DropoutLayer':
@@ -464,7 +465,7 @@ class NeuralNetwork:
         X_shuffled = X[:, permutation]
         Y_shuffled = Y[:, permutation]
         for i in range(0, num_samples, batch_size):
-            yield X[:, i : i + batch_size], Y[:, i : i + batch_size]
+            yield X_shuffled[:, i : i + batch_size], Y_shuffled[:, i : i + batch_size]
     
     def _get_batch_info(self, batch_size: int, X_train: np.ndarray, verbose: bool = True) -> Tuple[int, int]:
         """
