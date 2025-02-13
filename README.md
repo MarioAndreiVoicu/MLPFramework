@@ -7,7 +7,7 @@ A NumPy-based library for building and training Multilayer Perceptrons.
 - **Custom Architectures**: Build Multilayer Perceptrons with custom architectures.
 - **Layer Types**: Dense, Dropout.
 - **Activation Functions**: Linear, Sigmoid, Tanh, Softmax, ReLU, PReLU, ELU, Swish.
-- **Loss Functions**: Binary Crossentropy, Categorical Crossentropy, Mean Squared Error, Mean Absolute Error, Huber Loss
+- **Losses**: Binary Crossentropy, Categorical Crossentropy, Mean Squared Error, Mean Absolute Error, Huber Loss
 - **Optimizers**: Adam, RMSprop, Momentum, SGD.
 - **Metrics**: Accuracy, Precision, Recall, F1 Score, MAE, MSE.
 - **Callbacks**: Early Stopping, Progress Bar.
