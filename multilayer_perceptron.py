@@ -11,7 +11,7 @@ from typing import List, Optional, Literal, Generator, Tuple
 """
 multilayer_perceptron.py
 
-This module defines a MLP model class that can be used to build, 
+This module defines an MLP model class that can be used to build, 
 compile, train, and evaluate custom MLP models.
 
 Key Features:
@@ -40,8 +40,8 @@ class MultilayerPerceptron:
         main_metric (str): The metric displayed in the progress bar.
             This can be one of "train_cost", "val_cost", or "train_val_cost".
         loss_function (function): The loss function used by the model.
-            This can be one of "binary_crossentropy", "categorical_crossentropy",
-            "mean_squared_error", "mean_absolute_error"
+            Supported loss functions: "binary_crossentropy", "categorical_crossentropy",
+            "mean_squared_error", "mean_absolute_error", "huber_loss".
         loss_gradient (function): The gradient of the loss function.
         regularization_type (str): The type of regularization used by the model.
             This can be "L1", "L2", or "L1_L2".
@@ -50,7 +50,7 @@ class MultilayerPerceptron:
             This is only used if regularization_type is "L1_L2".
     """
     
-    def __init__(self, layers: object, verbose:bool = True):
+    def __init__(self, layers: object, verbose: bool = True):
         """
         Initialize the MLP model.
         
@@ -87,8 +87,8 @@ class MultilayerPerceptron:
         
         Args:
             loss_function (str): The loss function used by the model.
-                This can be one of "binary_crossentropy", "categorical_crossentropy",
-                "mean_squared_error", "mean_absolute_error".
+                Supported loss functions: "binary_crossentropy", "categorical_crossentropy",
+                "mean_squared_error", "mean_absolute_error", "huber_loss".
             optimizer (str): The optimizer used to train the model.
                 This can be one of "adam", "rmsprop", "momentum", "sgd".
                 An instance of the optimizer is created and stored in each layer separately.
@@ -120,7 +120,7 @@ class MultilayerPerceptron:
             clip_gradients (bool): Whether to clip the gradients during training.
             max_norm (float): The maximum norm value for gradient clipping.
         """
-        losses._set_loss(self, loss_function=loss_function)
+        losses._set_loss(self, loss_function)
         optimizers._set_optimizers(self, optimizer_name=optimizer, learning_rate=learning_rate, beta1=beta1, beta2=beta2, epsilon=epsilon, clip_gradients=clip_gradients, max_norm=max_norm)
         regularization._set_regularization(self, lambda_=lambda_, regularization_type=regularization_type, l1_l2_ratio=l1_l2_ratio)
         self.metrics = metrics.Metrics(model=self, metrics_list=metrics_list, main_metric=main_metric, max_dataset_size=max_metric_computation_size, average=metrics_average_type, use_colors=use_colors_metrics)
